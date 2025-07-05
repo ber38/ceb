@@ -1,0 +1,63 @@
+
+import { Quest, QuestType, Room } from './types';
+
+export const MAP_COLUMNS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
+export const MAP_ROWS = Array.from({ length: 10 }, (_, i) => i + 1);
+
+export const ROOM_LAYOUT: Room[] = [
+  { name: "Dojo d'entraînement", cells: ['A1', 'B1', 'H1', 'I1', 'C5', 'D5', 'A6', 'B6', 'A7', 'B7'], color: 'bg-red-900/70' },
+  { name: 'Résidence de Kagaya Ubuyashiki', cells: ['C1', 'D1', 'E1'], color: 'bg-purple-800/80' },
+  { name: 'Domaine des Papillons', cells: ['F1', 'G1'], color: 'bg-pink-400/70' },
+  { name: 'Jardin de Glycines', cells: ['J1','K1','L1','M1','J2','K2','L2','M2','J3','K3','L3','M3'], color: 'bg-violet-600/60' },
+  { name: 'Réfectoire du Corps', cells: ['D3', 'E3', 'F3', 'G3'], color: 'bg-amber-700/70' },
+  { name: 'Dortoirs des Pourfendeurs', cells: ['H3', 'I3'], color: 'bg-cyan-900/70' },
+  { name: "Cour d'entraînement extérieure", cells: ['D6', 'E6', 'F6', 'G6', 'H6', 'I6', 'D7', 'E7', 'G7', 'H7', 'I7', 'D8', 'E8', 'F8', 'I8'], color: 'bg-green-800/60' },
+  { name: 'Salle de stratégie', cells: ['G8', 'H8'], color: 'bg-blue-900/80' },
+  { name: 'Zone de la Sélection Finale', cells: ['J6','K6','L6','J7','K7','L7','J8','L8'], color: 'bg-stone-700/80' },
+  { name: 'Archives du Corps', cells: ['B9', 'C9'], color: 'bg-orange-900/70' },
+  { name: 'WC', cells: ['C2', 'I5', 'F7'], color: 'bg-gray-600/70' },
+];
+
+export const QUESTS: Quest[] = [
+  {
+    id: 1,
+    title: 'Quête 1 : Alerte Intrusion',
+    text: "Alerte ! Un démon a pénétré le périmètre ! Tu es dans la Salle de stratégie (H8). Rejoins le point de défense dans la Cour d'entraînement (croix en I8) par le chemin le plus court ! COMPLÈTE les coordonnées de ta course. Le chemin débute en I7.",
+    type: QuestType.INPUT_COORDS,
+    answer: "I7-H7-H8",
+    placeholder: 'I7 - ...'
+  },
+  {
+    id: 2,
+    title: 'Quête 2 : Ordre du Maître',
+    text: "Kagaya Ubuyashiki te mande. Son corbeau te guide : « Depuis la Résidence du Maître (D1), tourne à gauche. Avance et prends le couloir de gauche. Le dojo se trouve immédiatement sur ta gauche. » ÉCRIS le nom de ce lieu.",
+    type: QuestType.INPUT_TEXT,
+    answer: "Dojo d'entraînement",
+    placeholder: "Nom du lieu..."
+  },
+  {
+    id: 3,
+    title: 'Quête 3 : La Piste du Corbeau',
+    text: "Un corbeau de liaison a tracé un chemin de vol pour une mission secrète. Ses coordonnées sont : C7 – C6 – D6 – E6 – E5 – E4 – G4 – H4 – I4 – I3. Clique pour RÉVÉLER cette trajectoire sur la carte.",
+    type: QuestType.REVEAL_PATH,
+    answer: ['C7', 'C6', 'D6', 'E6', 'E5', 'E4', 'G4', 'H4', 'I4', 'I3'],
+    buttonText: 'Révéler la piste'
+  },
+  {
+    id: 4,
+    title: 'Quête 4 : La Potion de Shinobu',
+    text: "Pour créer un poison anti-démon, Shinobu Kocho a besoin de fleurs spéciales. ÉCRIS les coordonnées de toutes les parcelles du Jardin de Glycines.",
+    type: QuestType.INPUT_TEXT,
+    answer: "J1-K1-L1-M1-J2-K2-L2-M2-J3-K3-L3-M3",
+    placeholder: "J1 - K1 - ..."
+  }
+];
+
+export const SOLUTIONS: { [key: number]: string } = {
+  1: "I7 – H7 – H8",
+  2: "Dojo d'entraînement",
+  3: "Le chemin est tracé sur la carte.",
+  4: "J1 - K1 - L1 - M1 - J2 - K2 - L2 - M2 - J3 - K3 - L3 - M3",
+};
+
+export const ENCODED_PASSWORD = 'Q2ViQ2hhbXBpb24='; // "CebChampion"
