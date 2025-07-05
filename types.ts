@@ -20,4 +20,5 @@ export interface Room {
   cells: string[];
   color: string;
   textColor?: string;
+  labelCell?: string;
 }

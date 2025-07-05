@@ -27,34 +27,42 @@ const pathCoordsToPoints = (path: string[], cellSize: number): string => {
 };
 
 export const Map: React.FC<MapProps> = ({ showQuest3Path }) => {
-  const cellSize = 40; // in pixels
+  const cellSize = 64; // in pixels, increased for readability
   const gridWidth = MAP_COLUMNS.length * cellSize;
   const gridHeight = MAP_ROWS.length * cellSize;
 
   return (
-    <div className="bg-stone-200/90 p-4 rounded-lg shadow-lg border-4 border-amber-900/50">
-      <div className="relative font-sans" style={{ width: gridWidth, height: gridHeight }}>
-        <div className="grid grid-cols-13" style={{ gridTemplateColumns: `repeat(${MAP_COLUMNS.length}, minmax(0, 1fr))` }}>
-          {MAP_ROWS.map((row, rowIndex) =>
-            MAP_COLUMNS.map((col, colIndex) => {
+    <div className="relative bg-stone-200/90 p-4 rounded-lg shadow-lg border-4 border-amber-900/50">
+      <div className="font-sans" style={{ width: gridWidth, height: gridHeight }}>
+        <div className="grid" style={{ gridTemplateColumns: `repeat(${MAP_COLUMNS.length}, ${cellSize}px)` }}>
+          {MAP_ROWS.map((row) =>
+            MAP_COLUMNS.map((col) => {
               const cellId = `${col}${row}`;
               const room = getRoomForCell(cellId);
+              const labelRoom = ROOM_LAYOUT.find(r => r.labelCell === cellId);
               return (
                 <div
                   key={cellId}
-                  className={`w-10 h-10 border border-stone-400/50 flex items-center justify-center text-xs ${
-                    room ? room.color : 'bg-stone-50'
+                  style={{ width: `${cellSize}px`, height: `${cellSize}px` }}
+                  className={`border border-stone-400/50 p-1 flex items-center justify-center text-center ${
+                    room ? `${room.color} ${room.textColor || 'text-slate-900'}` : 'bg-stone-50'
                   }`}
                   title={room ? room.name : 'Couloir'}
                 >
-                   {cellId === 'I8' && <span className="text-red-500 font-bold text-2xl">X</span>}
+                  {labelRoom ? (
+                    <span className="text-xs font-bold leading-tight select-none">
+                      {labelRoom.name}
+                    </span>
+                  ) : cellId === 'I8' ? (
+                    <span className="text-red-500 font-bold text-2xl">X</span>
+                  ) : null}
                 </div>
               );
             })
           )}
         </div>
         {showQuest3Path && (
-           <svg className="absolute top-0 left-0 w-full h-full" viewBox={`0 0 ${gridWidth} ${gridHeight}`}>
+           <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" viewBox={`0 0 ${gridWidth} ${gridHeight}`}>
              <polyline
                 points={pathCoordsToPoints(['C7', 'C6', 'D6', 'E6', 'E5', 'E4', 'G4', 'H4', 'I4', 'I3'], cellSize)}
                 fill="none"
@@ -68,10 +76,10 @@ export const Map: React.FC<MapProps> = ({ showQuest3Path }) => {
         )}
       </div>
        <div className="flex justify-center mt-2" style={{ width: gridWidth }}>
-          {MAP_COLUMNS.map(col => <div key={col} className="w-10 text-center text-sm font-bold text-slate-800">{col}</div>)}
+          {MAP_COLUMNS.map(col => <div key={col} style={{ width: `${cellSize}px` }} className="text-center text-sm font-bold text-slate-800">{col}</div>)}
         </div>
         <div className="absolute top-4 -left-8 text-sm font-bold text-slate-800">
-            {MAP_ROWS.map(row => <div key={row} className="h-10 flex items-center">{row}</div>)}
+            {MAP_ROWS.map(row => <div key={row} style={{ height: `${cellSize}px` }} className="flex items-center justify-center">{row}</div>)}
         </div>
     </div>
   );

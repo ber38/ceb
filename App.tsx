@@ -47,6 +47,7 @@ const App: React.FC = () => {
             answers={answers}
             onAnswerChange={handleAnswerChange}
             onRevealPath={handleRevealPath}
+            showSolutions={showSolutions}
           />
         </main>
         <footer className="mt-12">

@@ -7,11 +7,12 @@ interface QuestProps {
   answer: string;
   onAnswerChange: (questId: number, value: string) => void;
   onRevealPath: () => void;
+  showSolutions: boolean;
 }
 
 const normalizeAnswer = (str: string) => str.replace(/[\s–-]/g, '').toLowerCase();
 
-export const Quest: React.FC<QuestProps> = ({ quest, answer, onAnswerChange, onRevealPath }) => {
+export const Quest: React.FC<QuestProps> = ({ quest, answer, onAnswerChange, onRevealPath, showSolutions }) => {
   
   const isCorrect = quest.type !== QuestType.REVEAL_PATH && answer && normalizeAnswer(answer) === normalizeAnswer(quest.answer as string);
 
@@ -51,7 +52,8 @@ export const Quest: React.FC<QuestProps> = ({ quest, answer, onAnswerChange, onR
         {quest.type === QuestType.REVEAL_PATH && (
           <button
             onClick={onRevealPath}
-            className="w-full bg-red-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-800 transition-colors duration-200 shadow-lg border-b-4 border-red-900 active:border-b-0 active:translate-y-1"
+            disabled={!showSolutions}
+            className="w-full bg-red-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-800 transition-colors duration-200 shadow-lg border-b-4 border-red-900 active:border-b-0 active:translate-y-1 disabled:bg-slate-500 disabled:cursor-not-allowed disabled:border-slate-600 disabled:shadow-none disabled:translate-y-0"
           >
             {quest.buttonText}
           </button>

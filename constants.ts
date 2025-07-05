@@ -5,17 +5,17 @@ export const MAP_COLUMNS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K
 export const MAP_ROWS = Array.from({ length: 10 }, (_, i) => i + 1);
 
 export const ROOM_LAYOUT: Room[] = [
-  { name: "Dojo d'entraînement", cells: ['A1', 'B1', 'H1', 'I1', 'C5', 'D5', 'A6', 'B6', 'A7', 'B7'], color: 'bg-red-900/70' },
-  { name: 'Résidence de Kagaya Ubuyashiki', cells: ['C1', 'D1', 'E1'], color: 'bg-purple-800/80' },
-  { name: 'Domaine des Papillons', cells: ['F1', 'G1'], color: 'bg-pink-400/70' },
-  { name: 'Jardin de Glycines', cells: ['J1','K1','L1','M1','J2','K2','L2','M2','J3','K3','L3','M3'], color: 'bg-violet-600/60' },
-  { name: 'Réfectoire du Corps', cells: ['D3', 'E3', 'F3', 'G3'], color: 'bg-amber-700/70' },
-  { name: 'Dortoirs des Pourfendeurs', cells: ['H3', 'I3'], color: 'bg-cyan-900/70' },
-  { name: "Cour d'entraînement extérieure", cells: ['D6', 'E6', 'F6', 'G6', 'H6', 'I6', 'D7', 'E7', 'G7', 'H7', 'I7', 'D8', 'E8', 'F8', 'I8'], color: 'bg-green-800/60' },
-  { name: 'Salle de stratégie', cells: ['G8', 'H8'], color: 'bg-blue-900/80' },
-  { name: 'Zone de la Sélection Finale', cells: ['J6','K6','L6','J7','K7','L7','J8','L8'], color: 'bg-stone-700/80' },
-  { name: 'Archives du Corps', cells: ['B9', 'C9'], color: 'bg-orange-900/70' },
-  { name: 'WC', cells: ['C2', 'I5', 'F7'], color: 'bg-gray-600/70' },
+  { name: "Dojo d'entraînement", cells: ['A1', 'B1', 'H1', 'I1', 'C5', 'D5', 'A6', 'B6', 'A7', 'B7'], color: 'bg-red-900/70', textColor: 'text-gray-100', labelCell: 'A6' },
+  { name: 'Résidence de Kagaya Ubuyashiki', cells: ['C1', 'D1', 'E1'], color: 'bg-purple-800/80', textColor: 'text-gray-100', labelCell: 'D1' },
+  { name: 'Domaine des Papillons', cells: ['F1', 'G1'], color: 'bg-pink-400/70', textColor: 'text-gray-900', labelCell: 'F1' },
+  { name: 'Jardin de Glycines', cells: ['J1','K1','L1','M1','J2','K2','L2','M2','J3','K3','L3','M3'], color: 'bg-violet-600/60', textColor: 'text-gray-100', labelCell: 'K2' },
+  { name: 'Réfectoire du Corps', cells: ['D3', 'E3', 'F3', 'G3'], color: 'bg-amber-700/70', textColor: 'text-gray-100', labelCell: 'E3' },
+  { name: 'Dortoirs des Pourfendeurs', cells: ['H3', 'I3'], color: 'bg-cyan-900/70', textColor: 'text-gray-100', labelCell: 'H3' },
+  { name: "Cour d'entraînement extérieure", cells: ['D6', 'E6', 'F6', 'G6', 'H6', 'I6', 'D7', 'E7', 'G7', 'H7', 'I7', 'D8', 'E8', 'F8', 'I8'], color: 'bg-green-800/60', textColor: 'text-gray-100', labelCell: 'F6' },
+  { name: 'Salle de stratégie', cells: ['G8', 'H8'], color: 'bg-blue-900/80', textColor: 'text-gray-100', labelCell: 'G8' },
+  { name: 'Zone de la Sélection Finale', cells: ['J6','K6','L6','J7','K7','L7','J8','L8'], color: 'bg-stone-700/80', textColor: 'text-gray-100', labelCell: 'K7' },
+  { name: 'Archives du Corps', cells: ['B9', 'C9'], color: 'bg-orange-900/70', textColor: 'text-gray-100', labelCell: 'B9' },
+  { name: 'WC', cells: ['C2', 'I5', 'F7'], color: 'bg-gray-600/70', textColor: 'text-gray-100' },
 ];
 
 export const QUESTS: Quest[] = [

@@ -1,5 +1,6 @@
 {
   "name": "Demon Slayer: HQ Mission",
   "description": "An interactive educational mini-game based on a school map exercise, reimagined in the world of Demon Slayer. Help the Demon Slayers navigate their headquarters to complete critical missions.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "prompt": ""
 }
