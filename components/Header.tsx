@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export const Header: React.FC = () => {
@@ -10,13 +9,6 @@ export const Header: React.FC = () => {
       <p className="text-lg sm:text-xl text-slate-300 mt-2 font-sans">
         Mission de Repérage
       </p>
-      <div className="mt-6 max-w-4xl mx-auto rounded-lg overflow-hidden shadow-2xl shadow-red-900/30">
-        <img
-          src="https://storage.googleapis.com/genai-ui-experiments/dev/demon-slayer-season-2-.jpg"
-          alt="L'équipe de Demon Slayer"
-          className="w-full h-auto object-cover"
-        />
-      </div>
     </header>
   );
 };

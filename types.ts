@@ -2,7 +2,7 @@
 export enum QuestType {
   INPUT_COORDS,
   INPUT_TEXT,
-  REVEAL_PATH,
+  TRACE_PATH, // Formerly REVEAL_PATH
 }
 
 export interface Quest {
@@ -12,7 +12,6 @@ export interface Quest {
   type: QuestType;
   answer: string | string[];
   placeholder?: string;
-  buttonText?: string;
 }
 
 export interface Room {
@@ -21,4 +20,5 @@ export interface Room {
   color: string;
   textColor?: string;
   labelCell?: string;
+  texture?: 'tatami' | 'shoji' | 'stone' | 'wood';
 }

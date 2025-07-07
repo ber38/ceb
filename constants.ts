@@ -5,17 +5,17 @@ export const MAP_COLUMNS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K
 export const MAP_ROWS = Array.from({ length: 10 }, (_, i) => i + 1);
 
 export const ROOM_LAYOUT: Room[] = [
-  { name: "Dojo d'entraînement", cells: ['A1', 'B1', 'H1', 'I1', 'C5', 'D5', 'A6', 'B6', 'A7', 'B7'], color: 'bg-red-900/70', textColor: 'text-gray-100', labelCell: 'A6' },
-  { name: 'Résidence de Kagaya Ubuyashiki', cells: ['C1', 'D1', 'E1'], color: 'bg-purple-800/80', textColor: 'text-gray-100', labelCell: 'D1' },
-  { name: 'Domaine des Papillons', cells: ['F1', 'G1'], color: 'bg-pink-400/70', textColor: 'text-gray-900', labelCell: 'F1' },
-  { name: 'Jardin de Glycines', cells: ['J1','K1','L1','M1','J2','K2','L2','M2','J3','K3','L3','M3'], color: 'bg-violet-600/60', textColor: 'text-gray-100', labelCell: 'K2' },
-  { name: 'Réfectoire du Corps', cells: ['D3', 'E3', 'F3', 'G3'], color: 'bg-amber-700/70', textColor: 'text-gray-100', labelCell: 'E3' },
-  { name: 'Dortoirs des Pourfendeurs', cells: ['H3', 'I3'], color: 'bg-cyan-900/70', textColor: 'text-gray-100', labelCell: 'H3' },
-  { name: "Cour d'entraînement extérieure", cells: ['D6', 'E6', 'F6', 'G6', 'H6', 'I6', 'D7', 'E7', 'G7', 'H7', 'I7', 'D8', 'E8', 'F8', 'I8'], color: 'bg-green-800/60', textColor: 'text-gray-100', labelCell: 'F6' },
-  { name: 'Salle de stratégie', cells: ['G8', 'H8'], color: 'bg-blue-900/80', textColor: 'text-gray-100', labelCell: 'G8' },
-  { name: 'Zone de la Sélection Finale', cells: ['J6','K6','L6','J7','K7','L7','J8','L8'], color: 'bg-stone-700/80', textColor: 'text-gray-100', labelCell: 'K7' },
-  { name: 'Archives du Corps', cells: ['B9', 'C9'], color: 'bg-orange-900/70', textColor: 'text-gray-100', labelCell: 'B9' },
-  { name: 'WC', cells: ['C2', 'I5', 'F7'], color: 'bg-gray-600/70', textColor: 'text-gray-100' },
+  { name: "Dojo d'entraînement", cells: ['A1', 'B1', 'H1', 'I1', 'C5', 'D5', 'A6', 'B6', 'A7', 'B7'], color: 'rgba(127, 29, 29, 0.7)', textColor: '#F3F4F6', labelCell: 'A6', texture: 'tatami' },
+  { name: 'Résidence de Kagaya Ubuyashiki', cells: ['C1', 'D1', 'E1'], color: 'rgba(107, 33, 168, 0.8)', textColor: '#F3F4F6', labelCell: 'D1', texture: 'shoji' },
+  { name: 'Domaine des Papillons', cells: ['F1', 'G1'], color: 'rgba(244, 114, 182, 0.7)', textColor: '#F3F4F6', labelCell: 'F1', texture: 'shoji' },
+  { name: 'Jardin de Glycines', cells: ['J1','K1','L1','M1','J2','K2','L2','M2','J3','K3','L3','M3'], color: 'rgba(124, 58, 237, 0.6)', textColor: '#F3F4F6', labelCell: 'K2', texture: 'stone' },
+  { name: 'Réfectoire du Corps', cells: ['D3', 'E3', 'F3', 'G3'], color: 'rgba(180, 83, 9, 0.7)', textColor: '#F3F4F6', labelCell: 'E3', texture: 'wood' },
+  { name: 'Dortoirs des Pourfendeurs', cells: ['H3', 'I3'], color: 'rgba(22, 78, 99, 0.7)', textColor: '#F3F4F6', labelCell: 'H3', texture: 'tatami' },
+  { name: "Cour d'entraînement extérieure", cells: ['D6', 'E6', 'F6', 'G6', 'H6', 'I6', 'D7', 'E7', 'G7', 'H7', 'I7', 'D8', 'E8', 'F8', 'I8'], color: 'rgba(22, 101, 52, 0.6)', textColor: '#F3F4F6', labelCell: 'F6', texture: 'stone' },
+  { name: 'Salle de stratégie', cells: ['G8', 'H8'], color: 'rgba(30, 58, 138, 0.8)', textColor: '#F3F4F6', labelCell: 'G8', texture: 'tatami' },
+  { name: 'Zone de la Sélection Finale', cells: ['J6','K6','L6','J7','K7','L7','J8','L8'], color: 'rgba(68, 64, 60, 0.8)', textColor: '#F3F4F6', labelCell: 'K7', texture: 'wood' },
+  { name: 'Archives du Corps', cells: ['B9', 'C9'], color: 'rgba(124, 45, 18, 0.7)', textColor: '#F3F4F6', labelCell: 'B9', texture: 'wood' },
+  { name: 'WC', cells: ['C2', 'I5', 'F7'], color: 'rgba(75, 85, 99, 0.7)', textColor: '#F3F4F6' },
 ];
 
 export const QUESTS: Quest[] = [
@@ -38,10 +38,9 @@ export const QUESTS: Quest[] = [
   {
     id: 3,
     title: 'Quête 3 : La Piste du Corbeau',
-    text: "Un corbeau de liaison a tracé un chemin de vol pour une mission secrète. Ses coordonnées sont : C7 – C6 – D6 – E6 – E5 – E4 – G4 – H4 – I4 – I3. Clique pour RÉVÉLER cette trajectoire sur la carte.",
-    type: QuestType.REVEAL_PATH,
+    text: "Un corbeau de liaison a tracé un chemin de vol pour une mission secrète. Ses coordonnées sont : C7 – C6 – D6 – E6 – E5 – E4 – G4 – H4 – I4 – I3. TRACE sa trajectoire sur la carte en cliquant sur les cases dans le bon ordre.",
+    type: QuestType.TRACE_PATH,
     answer: ['C7', 'C6', 'D6', 'E6', 'E5', 'E4', 'G4', 'H4', 'I4', 'I3'],
-    buttonText: 'Révéler la piste'
   },
   {
     id: 4,
@@ -56,7 +55,7 @@ export const QUESTS: Quest[] = [
 export const SOLUTIONS: { [key: number]: string } = {
   1: "I7 – H7 – H8",
   2: "Dojo d'entraînement",
-  3: "Le chemin est tracé sur la carte.",
+  3: "Le chemin correct est affiché sur la carte.",
   4: "J1 - K1 - L1 - M1 - J2 - K2 - L2 - M2 - J3 - K3 - L3 - M3",
 };
 
