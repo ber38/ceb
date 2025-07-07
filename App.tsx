@@ -61,7 +61,7 @@ const App: React.FC = () => {
             <div className="lg:col-span-3">
                <div className="rounded-lg overflow-hidden shadow-2xl shadow-red-900/30 border-2 border-slate-700">
                   <img
-                    src="/demon-slayer-season-2-.jpg"
+                    src="demon-slayer-season-2-.jpg"
                     alt="L'équipe de Demon Slayer"
                     className="w-full h-auto object-cover"
                   />
