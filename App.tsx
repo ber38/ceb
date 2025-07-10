@@ -1,94 +1,145 @@
 
 import React, { useState, useCallback } from 'react';
-import { QUESTS, SOLUTIONS, ENCODED_PASSWORD } from './constants';
-import { Map } from './components/Map';
+import Grid from './components/Grid';
 import { QuestPanel } from './components/QuestPanel';
-import { AdultZone } from './components/AdultZone';
-import { Header } from './components/Header';
+import { Modal } from './components/Modal';
+import { QUESTS_DATA, CORRECT_ANSWERS, CROW_PATH_COORDS, PASSWORD_B64, GRID_COLS, GRID_ROWS } from './constants';
 
-const App: React.FC = () => {
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
-  const [quest3UserPath, setQuest3UserPath] = useState<string[]>([]);
-  const [showSolutions, setShowSolutions] = useState(false);
-  const [passwordError, setPasswordError] = useState('');
+function App() {
+  const [solvedQuests, setSolvedQuests] = useState<number[]>([]);
+  const [animatedPathCoords, setAnimatedPathCoords] = useState<string[]>([]);
+  const [clickedPath, setClickedPath] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [solutionsUnlocked, setSolutionsUnlocked] = useState(false);
 
-  const handleAnswerChange = useCallback((questId: number, value: string) => {
-    setAnswers(prev => ({ ...prev, [questId]: value }));
-  }, []);
+  const handleValidate = useCallback((id: number, answer: string): boolean => {
+    const correctAnswer = CORRECT_ANSWERS[id as keyof typeof CORRECT_ANSWERS];
+    if (!correctAnswer) return false;
 
-  const handleMapClick = useCallback((cellId: string) => {
-    const quest3Answer = QUESTS.find(q => q.id === 3)?.answer as string[];
-    if (!quest3Answer || quest3UserPath.length >= quest3Answer.length) return;
-
-    const nextCorrectCell = quest3Answer[quest3UserPath.length];
-    if (cellId === nextCorrectCell) {
-      setQuest3UserPath(prev => [...prev, cellId]);
-    } else {
-      // Incorrect click, reset the path for implicit feedback
-      setQuest3UserPath([]);
-    }
-  }, [quest3UserPath]);
-
-  const handlePasswordSubmit = useCallback((password: string) => {
-    try {
-      if (btoa(password) === ENCODED_PASSWORD) {
-        setShowSolutions(true);
-        setPasswordError('');
-      } else {
-        setShowSolutions(false);
-        setPasswordError('Mot de passe incorrect.');
+    let isCorrect = false;
+    
+    if (id === 1) {
+      const cleanedAnswer = answer.toLowerCase().replace(/\s/g, '');
+      const pathWithI10 = "i10,i9,i8,i7,i6,i5,i4,j4,k4,l4,m4";
+      const pathWithoutI10 = "i9,i8,i7,i6,i5,i4,j4,k4,l4,m4";
+      isCorrect = cleanedAnswer === pathWithI10 || cleanedAnswer === pathWithoutI10;
+    } else if (id === 3) {
+      // For quest 3, compare the ordered path
+      const userAnswerPath = clickedPath.map(c => c.toLowerCase()).join(',');
+      const correctAnswerPath = CROW_PATH_COORDS.map(c => c.toLowerCase()).join(',');
+      isCorrect = userAnswerPath === correctAnswerPath;
+      
+      if (isCorrect) {
+        // Animate the correct path in order on success
+        setAnimatedPathCoords([]);
+        CROW_PATH_COORDS.forEach((coord, index) => {
+          setTimeout(() => {
+            setAnimatedPathCoords(prev => [...prev, coord]);
+          }, index * 150);
+        });
       }
-    } catch (e) {
-      setShowSolutions(false);
-      setPasswordError('Erreur de validation.');
-      console.error("Password encoding error:", e);
+    } else {
+      isCorrect = answer.toLowerCase().replace(/[\s,]/g, '') === correctAnswer.replace(/[\s,]/g, '');
     }
-  }, []);
+
+    if (isCorrect) {
+      setSolvedQuests(prev => [...prev, id]);
+    }
+    return isCorrect;
+  }, [clickedPath]);
+
+  const handleGridClick = useCallback((cellId: string) => {
+    if (solvedQuests.includes(3)) return;
+
+    const finalCellId = cellId;
+
+    setClickedPath(prev => {
+      const index = prev.indexOf(finalCellId);
+      if (index > -1) {
+        // If cell is already in the path, remove it and all subsequent cells.
+        // This allows the user to easily correct a mistake in the path.
+        return prev.slice(0, index);
+      } else {
+        // Add new cell to the path
+        return [...prev, finalCellId];
+      }
+    });
+  }, [solvedQuests]);
   
+  const handleUnlockSolutions = () => {
+    setSolutionsUnlocked(true);
+  };
+
   return (
-    <div className="min-h-screen w-full bg-slate-900/80 p-4 sm:p-6 lg:p-8">
+    <main className="bg-[#12121c] min-h-screen text-white p-4 sm:p-6 lg:p-8" style={{
+        backgroundImage: `linear-gradient(rgba(18, 18, 28, 0.95), rgba(18, 18, 28, 0.95)), url(https://picsum.photos/seed/demonslayer/1920/1080)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+    }}>
       <div className="max-w-screen-2xl mx-auto">
-        <Header />
-        <main className="mt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-9">
-              <Map
-                onMapClick={handleMapClick}
-                quest3UserPath={quest3UserPath}
-                showSolutions={showSolutions}
-              />
-            </div>
-            <div className="lg:col-span-3">
-               <div className="rounded-lg overflow-hidden shadow-2xl shadow-red-900/30 border-2 border-slate-700">
-                  <img
-                    src="demon-slayer-season-2-.jpg"
-                    alt="L'équipe de Demon Slayer"
-                    className="w-full h-auto object-cover"
-                  />
+        <header className="text-center mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-wider text-amber-100" style={{textShadow: '0 2px 15px rgba(162, 28, 175, 0.5)'}}>
+            Demon Slayer: Mission au QG des Pourfendeurs
+          </h1>
+          <p className="text-purple-300 mt-2">Observez la carte et accomplissez vos missions, pourfendeur.</p>
+        </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+          <div className="lg:col-span-3">
+             <div className="p-4 bg-black/30 rounded-xl shadow-lg border border-purple-500/30">
+                {/* Column Headers */}
+                <div className="grid" style={{ 
+                    gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
+                    marginLeft: '2rem' // Offset for row headers
+                }}>
+                    {Array.from({ length: GRID_COLS }).map((_, i) => (
+                        <div key={`col-header-${i}`} className="text-center font-bold text-purple-300 pb-1">
+                            {String.fromCharCode(65 + i)}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="flex">
+                    {/* Row Headers */}
+                    <div className="flex flex-col justify-around font-bold text-purple-300 w-8">
+                        {Array.from({ length: GRID_ROWS }).map((_, i) => (
+                            <div key={`row-header-${i}`} className="text-center">
+                                {i + 1}
+                            </div>
+                        ))}
+                    </div>
+                    {/* Grid */}
+                    <div className="flex-1">
+                        <Grid 
+                            animatedPathCoords={animatedPathCoords}
+                            selectedPath={clickedPath}
+                            onCellClick={handleGridClick}
+                        />
+                    </div>
                 </div>
             </div>
           </div>
-
-          <div className="my-10">
-            <AdultZone
-              solutions={SOLUTIONS}
-              showSolutions={showSolutions}
-              onPasswordSubmit={handlePasswordSubmit}
-              error={passwordError}
+          <div className="lg:col-span-2">
+            <QuestPanel
+              quests={QUESTS_DATA}
+              onValidate={handleValidate}
+              solvedQuests={solvedQuests}
+              solutions={CORRECT_ANSWERS}
+              onOpenModal={() => setIsModalOpen(true)}
+              solutionsUnlocked={solutionsUnlocked}
+              clickedPath={clickedPath}
             />
           </div>
-
-          <QuestPanel
-            quests={QUESTS}
-            answers={answers}
-            onAnswerChange={handleAnswerChange}
-            showSolutions={showSolutions}
-            quest3UserPath={quest3UserPath}
-          />
-        </main>
+        </div>
       </div>
-    </div>
+      <Modal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleUnlockSolutions}
+        correctPasswordB64={PASSWORD_B64}
+      />
+    </main>
   );
-};
+}
 
 export default App;

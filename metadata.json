@@ -1,6 +1,6 @@
 {
-  "name": "Demon Slayer: HQ Mission",
-  "description": "An interactive educational mini-game based on a school map exercise, reimagined in the world of Demon Slayer. Help the Demon Slayers navigate their headquarters to complete critical missions.",
+  "name": "Demon Slayer: Mission au QG des Pourfendeurs",
+  "description": "Un mini-jeu web interactif sur le thème de Demon Slayer. Les utilisateurs naviguent sur la carte du quartier général du Corps des Pourfendeurs pour résoudre une série de quêtes, testant leurs compétences d'observation et d'orientation dans une expérience immersive et premium.",
   "requestFramePermissions": [],
   "prompt": ""
 }
